@@ -7,6 +7,9 @@
 //
 
 import XCTest
+import UIKit
+import AFNetworking
+
 @testable import MarvelHeroes
 
 class MarvelHeroesTests: XCTestCase {
@@ -33,4 +36,19 @@ class MarvelHeroesTests: XCTestCase {
         }
     }
     
+    
+    func testCharacterAPIRequest() {
+        for i in 0 ..< 5 {
+            let expectation = expectationWithDescription("Testing Characters loading for page: " + i.description)
+            
+            APIManager.sharedInstance.getHeroes(i, success: { (operation, characters) in
+                XCTAssertTrue(characters.count == 12, "No more characters to load at page: " + i.description)
+                expectation.fulfill()
+            }) { (operation, error) in
+                XCTFail("Load characters failed with error: " + error.description)
+            }
+            
+            waitForExpectationsWithTimeout(10.0, handler: { error in XCTAssertNil(error, "Expectation failed with error: " + (error?.description)!)})
+        }
+    }
 }
