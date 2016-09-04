@@ -15,6 +15,7 @@ typealias errorHandler = (requestOperation: AFHTTPRequestOperation!, error: NSEr
 class APIManager {
     
     let operationManager = AFHTTPRequestOperationManager()
+    var isOperationManagerConfigured = false
     let defaultPageSize = 12
     
     
@@ -64,7 +65,7 @@ class APIManager {
         return StaticVar.instance
     }
     
-    init() {}
+    private init() {}
     
     func getHeroes(page: Int, success: (operation: AFHTTPRequestOperation!, superheroes: [Superhero]) -> Void, failure: errorHandler) {
         

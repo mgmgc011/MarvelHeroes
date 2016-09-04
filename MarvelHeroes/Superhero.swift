@@ -20,7 +20,7 @@ class Superhero {
     
     var hasPhoto: Bool {
         get {
-            return imagePath!.containsString("image_not_avaliable")
+            return !(imagePath!.containsString("image_not_avaliable"))
         }
     }
     
